@@ -1,4 +1,4 @@
-require('dotenv').config()
+const config = require('./utils/config')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -9,8 +9,8 @@ const blogsRouter = require('./controllers/blogs')
 
 
 const mongoUrl = process.env.MONGODB_URI
-console.log('connecting to', mongoUrl)
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+console.log('connecting to', config.MONGODB_URI)
+mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(cors())
 app.use(bodyParser.json())
