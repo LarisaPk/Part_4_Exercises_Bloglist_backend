@@ -1,5 +1,6 @@
-const listHelper = require('../utils/list_helper')
-const blogs = [
+const Blog = require('../models/blog')
+
+const initialBlogs = [
     {
       _id: "5a422a851b54a676234d17f7",
       title: "React patterns",
@@ -8,14 +9,6 @@ const blogs = [
       likes: 7,
       __v: 0
     },
-    {
-        _id: "5a422a851b54a676234d17f7",
-        title: "React patterns",
-        author: "Michael Chan",
-        url: "https://reactpatterns.com/",
-        likes: 7,
-        __v: 0
-      },     
     {
       _id: "5a422aa71b54a676234d17f8",
       title: "Go To Statement Considered Harmful",
@@ -57,14 +50,12 @@ const blogs = [
       __v: 0
     }  
   ]
-describe('most blogs', () => {
-  
-    test('return the author with most blogs', () => {
-      const result = listHelper.mostBlogs(blogs)
-      const mostAuthor ={
-        author: "Robert C. Martin",
-        blogs: 3
-      }
-      expect(result).toEqual(mostAuthor)
-    })
-}) 
+
+const blogsInDb = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
+}
+
+module.exports = {
+    initialBlogs, blogsInDb
+}
